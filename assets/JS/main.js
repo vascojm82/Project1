@@ -1,5 +1,11 @@
 $( document ).ready(function() {
 
+  function _cb_findItemsByKeywords(root) {
+      console.log(root);
+      var items = root.findItemsByKeywordsResponse[0].searchResult[0].item || [];
+      console.log(items);
+  }
+
   function searchItem() {
 
       //var queryURL = "https://api.walmartlabs.com/v1/items?apiKey=gz923356c3mh4n2agf52q4hp&upc=035000521019";
@@ -32,12 +38,6 @@ $( document ).ready(function() {
           type: 'GET'
        });
 
-  }
-
-  function _cb_findItemsByKeywords(root) {
-      console.log(root);
-      var items = root.findItemsByKeywordsResponse[0].searchResult[0].item || [];
-      console.log(items);
   }
 
   searchItem();
