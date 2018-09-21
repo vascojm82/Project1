@@ -1,10 +1,11 @@
-$( document ).ready(function() {
-
-  function _cb_findItemsByKeywords(root) {
+function _cb_findItemsByKeywords(root) {
       console.log(root);
       var items = root.findItemsByKeywordsResponse[0].searchResult[0].item || [];
       console.log(items);
-  }
+}
+
+
+$( document ).ready(function() {
 
   function searchItem() {
 
