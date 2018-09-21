@@ -6,14 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Project 1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-
+    <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+    <script type="text/javascript" src="./assets/JS/firebase_db.js"></script>
+    <script type="text/javascript" src="./assets/JS/main.js"></script>
     <link rel="stylesheet" href="./assets/CSS/style.css">
 </head>
 
 
 <body>
+
+  <!--- Login Modal --->
+  <div id="id01" class="modal">
+    <form class="modal-content animate" action="/action_page.php">
+        <div class="imgcontainer">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <img src="./assets/img/img_avatar2.png" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="container">
+          <label for="uname"><b>Username</b></label>
+          <input type="text" placeholder="Enter Username" name="uname" required>
+
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" required>
+
+          <button type="submit" class="submit">Login</button>
+          <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+          </label>
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1">
+          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+          <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
+    </form>
+  </div>
+  <!-------------------------------->
     <!-- <nav class="container-fluid">
 
         <ul>
@@ -23,12 +55,12 @@
             <li><a href="#">shopping cart</a></li>
         </ul>
         <ul>
-               
+
                 <li><a href="#">deparments</a></li>
                 <li><a href="#">buy again</a></li>
                 <li><a href="#">browsing history</a></li>
             </ul>
-        
+
     </nav> -->
     <div class="header">
             <nav class="navbar navbar-expand-lg navbar-light">
@@ -42,10 +74,13 @@
                           <a class="nav-link" href="#">Home </a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="#">Login</a>
+                          <a class="nav-link login" href="#">Login</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="#">Signup</a>
+                          <a class="nav-link logout" href="#">Sign Out</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link signup" href="#">Signup</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="#">Cart</a>
@@ -137,8 +172,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
     <script src="assets/JS/main.js"></script>
 </body>

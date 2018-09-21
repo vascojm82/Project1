@@ -8,4 +8,5 @@ var config = {
 };
 firebase.initializeApp(config);
 
-var db = firebase.database();
+
+var db = firebase.database().ref('project1');
