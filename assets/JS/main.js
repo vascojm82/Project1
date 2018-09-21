@@ -1,9 +1,9 @@
 $( document ).ready(function() {
-  
+
   function searchItem() {
 
-      //var queryURL = "http://api.walmartlabs.com/v1/items?apiKey=gz923356c3mh4n2agf52q4hp&upc=035000521019";
-      var queryURL = "http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=luisdiaz-project1-PRD-4d2df7e74-dcc5cc15&GLOBAL-ID=EBAY-US&RESPONSE-DATA-FORMAT=JSON&callback=_cb_findItemsByKeywords&REST-PAYLOAD&keywords=cat&paginationInput.entriesPerPage=3";
+      //var queryURL = "https://api.walmartlabs.com/v1/items?apiKey=gz923356c3mh4n2agf52q4hp&upc=035000521019";
+      var queryURL = "https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=luisdiaz-project1-PRD-4d2df7e74-dcc5cc15&GLOBAL-ID=EBAY-US&RESPONSE-DATA-FORMAT=JSON&callback=_cb_findItemsByKeywords&REST-PAYLOAD&keywords=cat&paginationInput.entriesPerPage=3";
 
       console.log(queryURL);
       // $.ajax({
@@ -38,10 +38,10 @@ $( document ).ready(function() {
       console.log(root);
       var items = root.findItemsByKeywordsResponse[0].searchResult[0].item || [];
       console.log(items);
-  } 
+  }
 
   searchItem();
-   
+
   var provider = new firebase.auth.GoogleAuthProvider();
 
    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
