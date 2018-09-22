@@ -47,21 +47,23 @@ $(document).ready(function () {
   });
 });
 
-function ebaySearch() {
-  
-  var queryURL = "https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=luisdiaz-project1-PRD-4d2df7e74-dcc5cc15&GLOBAL-ID=EBAY-US&RESPONSE-DATA-FORMAT=JSON&callback=_cb_findItemsByKeywords&REST-PAYLOAD&keywords=cat&paginationInput.entriesPerPage=3";
+var ebayList;
+var walmartList;
+var totalSearch = [];
+
+// EBAY API
+function ebaySearch(userSearch) {
+
+  var queryURL = "https://svcs.ebay.com/services/search/FindingService/v1"
+    +"?OPERATION-NAME=findItemsByKeywords"
+    +"&SERVICE-VERSION=1.0.0"
+    +"&SECURITY-APPNAME=luisdiaz-project1-PRD-4d2df7e74-dcc5cc15&GLOBAL-ID=EBAY-US"
+    +"&RESPONSE-DATA-FORMAT=JSON"
+    +"&callback=_cb_findItemsByKeywords&REST-PAYLOAD"
+    +"&keywords=" + userSearch
+    +"&paginationInput.entriesPerPage=3";
 
   console.log(queryURL);
-  // $.ajax({
-  //     url: queryURL,
-  //     method: "GET"
-  // }).done(function (response) {
-  //     console.log('LINE 20!!')
-  //     console.log(response);
-  // }).fail(function(error) {
-  //     console.log(error);
-  //   })
-
 
   $.ajax({
     url: queryURL,
@@ -74,16 +76,35 @@ function ebaySearch() {
     dataType: 'jsonp',
     success: function (data) {
       console.log(data);
-      //walmartcode
     },
     type: 'GET'
   });
 
 }
-//YESENIA IS GONNA WORK HERE!!
-function walmartSearch() {
-  //call walmart API
-  var queryURL = "http://api.walmartlabs.com/v1/search?apiKey=gz923356c3mh4n2agf52q4hp&query=tv&facet=on";
+// EBAY RESPONSE
+function _cb_findItemsByKeywords(data) {
+  var items = data.findItemsByKeywordsResponse[0].searchResult[0].item || [];
+  ebayList = [];
+  for (var i = 0; i < items.length; i++) {
+
+    ebayList.push({
+      name: (items[i].title+"").substring(0, 60) + " EBAY",
+      price: items[i].sellingStatus[0].currentPrice[0].__value__,
+      img: items[i].galleryURL
+    });
+  }
+  checkIfAllCallssAreFinished();
+
+}
+
+
+// Waltmart API
+function walmartSearch(userSearch) {
+
+  var queryURL = "http://api.walmartlabs.com/v1/search"
+    +"?apiKey=gz923356c3mh4n2agf52q4hp"
+    +"&query=" + userSearch
+    +"&facet=on";
 
   console.log(queryURL);
   $.ajax({
@@ -96,65 +117,84 @@ function walmartSearch() {
     },
     dataType: 'jsonp',
     success: function (data) {
-      console.log(data);
 
-      var items= data.items;
+      var items = data.items;
+      walmartList = [];
+      for (var i = 0; i < items.length; i++) {
 
-      for (var i=0; i < items.length; i++) {
-
-        console.log('title: ' + items[i].name);
-        console.log('price: ' + items[i].salePrice);
-        console.log('image url: ' + items[i].mediumImage);
-        newCards(
-          items[i].name,
-          items[i].salePrice,
-          items[i].mediumImage
-        )
+        walmartList.push({
+          name:  items[i].name.substring(0, 60) + " WAL",
+          price: items[i].salePrice,
+          img: items[i].mediumImage
+        });
       }
+      checkIfAllCallssAreFinished();
       //walmartcode
     }, type: 'GET'
   });
 
 };
-//YESENIA END
-walmartSearch();
 
-function _cb_findItemsByKeywords(data) {
-  console.log(data);
-  var items = data.findItemsByKeywordsResponse[0].searchResult[0].item || [];
-  console.log(items);
+function unsortSearch(array) {
 
-  for (var i = 0; i < items.length; i++) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
 
-    console.log('title: ' + items[i].title);
-    console.log('price: ' + items[i].sellingStatus[0].currentPrice[0].__value__);
-    console.log('image url: ' + items[i].galleryURL);
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
 
-    newCards(
-      items[i].title, 
-      items[i].sellingStatus[0].currentPrice[0].__value__, 
-      items[i].galleryURL
-    );
-    
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
   }
 
 }
 
-function newCards(title, price, imgSrc){
+
+function newCards(title, price, imgSrc) {
   var h5 = $('<h5 class="card-title">');
   h5.text(title);
 
   var p = $('<p class="price-text">');
-  p.text('$'+price);
+  p.text('$' + price);
   var img = $('<img class="card-img-top" src=' + imgSrc + '>');
   var cardBodyDiv = $('<div class="card-body">');
   cardBodyDiv.append(h5, p);
   var addCartBtn = $('<a href="#" class="btn btn-primary addToCartBtn">');
   addCartBtn.text('Add to Cart');
-  var card = $('<div class="card cardContent">').append(img,cardBodyDiv,addCartBtn);
+  var card = $('<div class="card cardContent">').append(img, cardBodyDiv, addCartBtn);
 
   var colDiv = $('<div class="col-12 col-md-4 col-lg-3">').append(card);
   $('#items').append(colDiv);
 
 }
 
+$("#searchBtn").on("click", function(event) {
+  event.preventDefault();
+  var userSearch = $('#searchInp').val();
+  $('#items').empty();
+  ebayList = [];
+  walmartList = [];
+  var img = $('<img style="margin: auto" class="card-img-top" src="">');
+  $('#items').append(img);
+  ebaySearch(userSearch);
+  walmartSearch(userSearch);
+
+});
+
+
+function checkIfAllCallssAreFinished(){
+  if(ebayList && walmartList && ebayList.length>0 && walmartList.length>0){
+    //process info
+    totalSearch = ebayList.concat(walmartList);
+    unsortSearch(totalSearch);
+    $('#items').empty();
+    for(var i=0; i<totalSearch.length; i++){
+      newCards(totalSearch[i].name,totalSearch[i].price, totalSearch[i].img);
+    }
+  }
+}
