@@ -18,72 +18,44 @@ background-color: rgb(7, 133, 133);
 li:hover{
     color: #777777;
 }
- /* ul {
-    display:flex;
-        height: 20px;
-        width:100%;
-        justify-content:flex-end;
-        list-style: none;
-  }
-  li {
-      margin-right:10px;
+#custom-search-form {
+    margin:0;
+    margin-top: 5px;
+    padding: 0;
+    width: 100%;
+}
 
-  }
-  a {
-    color: white;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 14px;
-  }
-  a:hover {
-    color: #777777;
-  } */
+#custom-search-form .search-query {
+    padding-right: 3px;
+    padding-right: 4px \9;
+    padding-left: 3px;
+    padding-left: 4px \9;
+    /* IE7-8 doesn't have border-radius, so don't indent the padding */
 
-/*START OF CONTAINER*/
-/*SEARCH BAR*/
- .container{
-     padding: 20px 0;
-     text-align: center;
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
 
- }
- #custom-search-input {
-     margin:0;
-     margin-top: 10px;
-     padding: 0;
- }
+#custom-search-form button {
+    border: 0;
+    background: none;
+    /** belows styles are working good */
+    padding: 2px 5px;
+    margin-top: 2px;
+    position: relative;
+    left: -28px;
+    /* IE7-8 doesn't have border-radius, so don't indent the padding */
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
 
- #custom-search-input .search-query {
-     width:100%;
-     padding-right: 3px;
-     padding-left: 15px;
-         /* IE7-8 doesn't have border-radius, so don't indent the padding */
-     margin-bottom: 0;
-     -webkit-border-radius: 3px;
-     -moz-border-radius: 3px;
-     border-radius: 0;
- }
-
- #custom-search-input button {
-     border: 0;
-     background: none;
-     /** belows styles are working good */
-     padding: 2px 5px;
-     margin-top: 2px;
-     position: absolute;
-     right:0;
-     /* IE7-8 doesn't have border-radius, so don't indent the padding */
-     margin-bottom: 0;
-     -webkit-border-radius: 3px;
-     -moz-border-radius: 3px;
-     border-radius: 3px;
-     color:#D9230F;
-     cursor: unset;
-     z-index: 2;
- }
-
- .search-query:focus{
-     z-index: 0;
- }
+.search-query:focus + button {
+    z-index: 3;   
+}
 /*ITEMS CARDS*/
  .card-title {
      text-align: left;
@@ -97,14 +69,18 @@ li:hover{
      text-align: left;
      font-size: 20px;
  }
- .btn {
+ .addToCartBtn {
      background-color: rgb(236, 118, 6);
      color: white;
-    width: 90%;
+     margin: 0px 10px 10px 10px;
      border: none;
  }
  .logout{
    display: none;
+ }
+ .cardContent {
+    height: 500px;
+    margin-bottom: 10px;
  }
 
  /*** LOGIN MODAL ***/

@@ -48,8 +48,7 @@ $(document).ready(function () {
 });
 
 function ebaySearch() {
-
-  //var queryURL = "https://api.walmartlabs.com/v1/items?apiKey=gz923356c3mh4n2agf52q4hp&upc=035000521019";
+  
   var queryURL = "https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=luisdiaz-project1-PRD-4d2df7e74-dcc5cc15&GLOBAL-ID=EBAY-US&RESPONSE-DATA-FORMAT=JSON&callback=_cb_findItemsByKeywords&REST-PAYLOAD&keywords=cat&paginationInput.entriesPerPage=3";
 
   console.log(queryURL);
@@ -83,20 +82,46 @@ function ebaySearch() {
 }
 //YESENIA IS GONNA WORK HERE!!
 function walmartSearch() {
-
   //call walmart API
+  var queryURL = "http://api.walmartlabs.com/v1/search?apiKey=gz923356c3mh4n2agf52q4hp&query=tv&facet=on";
 
-  // in the var data, find out where is title, price and img
+  console.log(queryURL);
+  $.ajax({
+    url: queryURL,
+    data: {
+      format: 'json'
+    },
+    error: function (error) {
+      console.log(error);
+    },
+    dataType: 'jsonp',
+    success: function (data) {
+      console.log(data);
 
-   newCards(title, price, imgSrc);
+      var items= data.items;
 
-}
+      for (var i=0; i < items.length; i++) {
+
+        console.log('title: ' + items[i].name);
+        console.log('price: ' + items[i].salePrice);
+        console.log('image url: ' + items[i].mediumImage);
+        newCards(
+          items[i].name,
+          items[i].salePrice,
+          items[i].mediumImage
+        )
+      }
+      //walmartcode
+    }, type: 'GET'
+  });
+
+};
 //YESENIA END
 walmartSearch();
 
-function _cb_findItemsByKeywords(root) {
-  console.log(root);
-  var items = root.findItemsByKeywordsResponse[0].searchResult[0].item || [];
+function _cb_findItemsByKeywords(data) {
+  console.log(data);
+  var items = data.findItemsByKeywordsResponse[0].searchResult[0].item || [];
   console.log(items);
 
   for (var i = 0; i < items.length; i++) {
@@ -120,13 +145,16 @@ function newCards(title, price, imgSrc){
   h5.text(title);
 
   var p = $('<p class="price-text">');
-  p.text(price);
+  p.text('$'+price);
   var img = $('<img class="card-img-top" src=' + imgSrc + '>');
   var cardBodyDiv = $('<div class="card-body">');
   cardBodyDiv.append(h5, p);
-  var card = $('<div class="card">').append(img,cardBodyDiv);
+  var addCartBtn = $('<a href="#" class="btn btn-primary addToCartBtn">');
+  addCartBtn.text('Add to Cart');
+  var card = $('<div class="card cardContent">').append(img,cardBodyDiv,addCartBtn);
 
   var colDiv = $('<div class="col-12 col-md-4 col-lg-3">').append(card);
   $('#items').append(colDiv);
 
 }
+
