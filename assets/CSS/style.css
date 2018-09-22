@@ -5,18 +5,30 @@
  }
 /*START OF NAV BAR*/
 .header {
-background-color: rgb(7, 133, 133);
+background-color: #0069d9;
+
+
 
 }
-.header-buttons{
+.logo {
+    color: #fefefe !important;
+    padding: 20px 0;
+    font-size: 26px;
+}
+.header-buttons{   
     display:flex;
     height: 20px;
     width:100%;
     justify-content:flex-end;
     list-style: none;
+    color: white;
 }
-li:hover{
-    color: #777777;
+
+.nav-link {
+    color: white !important;
+}
+.nav-link:hover{
+    color: #777777 !important;
 }
 #custom-search-form {
     margin:0;
@@ -81,6 +93,11 @@ li:hover{
  .cardContent {
     height: 550px;
     margin-bottom: 10px;
+ }
+
+ .companyLogo{
+     width: 80px;
+     margin-left: 10px;
  }
 
  /*** LOGIN MODAL ***/

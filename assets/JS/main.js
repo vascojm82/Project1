@@ -88,9 +88,11 @@ function _cb_findItemsByKeywords(data) {
   for (var i = 0; i < items.length; i++) {
 
     ebayList.push({
-      name: (items[i].title+"").substring(0, 60) + " EBAY",
+      name: (items[i].title+"").substring(0, 60),
       price: items[i].sellingStatus[0].currentPrice[0].__value__,
-      img: items[i].galleryURL
+      logo: "ebayLogo.png",
+      img: items[i].galleryURL,
+
     });
   }
   checkIfAllCallssAreFinished();
@@ -123,9 +125,12 @@ function walmartSearch(userSearch) {
       for (var i = 0; i < items.length; i++) {
 
         walmartList.push({
-          name:  items[i].name.substring(0, 60) + " WAL",
+          name:  items[i].name.substring(0, 60),
           price: items[i].salePrice,
+          logo: "walmartLogo.png",
           img: items[i].mediumImage
+
+
         });
       }
       checkIfAllCallssAreFinished();
@@ -155,7 +160,7 @@ function unsortSearch(array) {
 }
 
 
-function newCards(title, price, imgSrc) {
+function newCards(title, price, imgSrc, logoSrc) {
   var h5 = $('<h5 class="card-title">');
   h5.text(title);
 
@@ -166,7 +171,8 @@ function newCards(title, price, imgSrc) {
   cardBodyDiv.append(h5, p);
   var addCartBtn = $('<a href="#" class="btn btn-primary addToCartBtn">');
   addCartBtn.text('Add to Cart');
-  var card = $('<div class="card cardContent">').append(img, cardBodyDiv, addCartBtn);
+  var logo = $('<img class="card-img-top companyLogo" src="assets/img/' + logoSrc + '">');
+  var card = $('<div class="card cardContent">').append(img, cardBodyDiv, logo, addCartBtn);
 
   var colDiv = $('<div class="col-12 col-md-4 col-lg-3">').append(card);
   $('#items').append(colDiv);
@@ -194,7 +200,7 @@ function checkIfAllCallssAreFinished(){
     unsortSearch(totalSearch);
     $('#items').empty();
     for(var i=0; i<totalSearch.length; i++){
-      newCards(totalSearch[i].name,totalSearch[i].price, totalSearch[i].img);
+      newCards(totalSearch[i].name,totalSearch[i].price, totalSearch[i].img, totalSearch[i].logo);
     }
   }
 }
