@@ -1,17 +1,12 @@
-$(document).ready(function () {
 
 
   var provider = new firebase.auth.GoogleAuthProvider();
-
+  var ebayList;
+  var walmartList;
+  var totalSearch = [];
+  
   provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
   firebase.auth().useDeviceLanguage();
-
-
-
-  // $('.login').click(function(){
-  //   document.getElementById('id01').style.display='block';
-  //   document.getElementById('id01').style.width='auto';
-  // });
 
   $('.login').click(function () {
     firebase.auth().signInWithPopup(provider).then(function (data) {
@@ -45,11 +40,8 @@ $(document).ready(function () {
       console.log(error);
     });
   });
-});
 
-var ebayList;
-var walmartList;
-var totalSearch = [];
+
 
 // EBAY API
 function ebaySearch(userSearch) {

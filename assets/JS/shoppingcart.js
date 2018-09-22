@@ -4,6 +4,7 @@
 var userId = "First User";
 function addCart(){
 
+    var animal = $(this).attr("data-name");
     
     db.ref(userId).once("value", function (snapshot) {
         var userCart = snapshot.val();
@@ -41,7 +42,7 @@ function clearCart(){
 
     db.ref(userId).remove();
 };//);
-clearCart();
+
 
 
 
@@ -58,3 +59,6 @@ clearCart();
 //     calcNextArrival(newTr, childSnapshot.val().time, childSnapshot.val().frecuency);
 //     $('#trainList').append(newTr);
 // });
+
+
+$(document).on("click", ".addToCartBtn", addCart);
