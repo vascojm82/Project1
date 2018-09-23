@@ -4,8 +4,17 @@
 var userId = "First User";
 function addCart(){
 
-    var animal = $(this).attr("data-name");
-    
+    console.log("Adding to Cart");
+    var itemId = $(this).attr("data-itemId");
+   
+    var itemSelected;
+    for(var i=0; i<totalSearch.length; i++){
+        if(totalSearch[i].itemId === itemId){
+            itemSelected = totalSearch[i];
+            break;
+        }
+    }
+    console.log(itemSelected);
     db.ref(userId).once("value", function (snapshot) {
         var userCart = snapshot.val();
         console.log(userCart);
@@ -13,9 +22,9 @@ function addCart(){
         if(userCart == null || !userCart){
             itemInfo = [{
                 user: 'USER',
-                name: 'test',
+                name: itemSelected.name,
                 quantity: 8,
-                itemId: 252525
+                itemId: itemId
             }];
             
             
@@ -23,9 +32,9 @@ function addCart(){
             itemInfo=userCart;
             itemInfo.push({
                 user: 'USER2',
-                name: 'test2',
+                name: itemSelected.name,
                 quantity: 9,
-                itemId: 2525
+                itemId: itemId
             });
         }
         db.ref(userId).set(itemInfo);
@@ -49,16 +58,17 @@ function clearCart(){
 
 
 // // method for update cart
-// database.ref(userId).on("child_added", function (childSnapshot) {
+db.ref(userId).on("child_added", function (childSnapshot) {
 
-//     var newTr = $('<tr class="train">').append(
-//         $('<td>').text(childSnapshot.val().name),
-//         $('<td>').text(childSnapshot.val().destination),
-//         $('<td>').text(childSnapshot.val().frecuency)
-//     );
-//     calcNextArrival(newTr, childSnapshot.val().time, childSnapshot.val().frecuency);
-//     $('#trainList').append(newTr);
-// });
+    var $shoppingCart = $('#shoppingCart');
+    if(childSnapshot && childSnapshot != null){
+        console.log('IN');
+        console.log(childSnapshot.val());
+
+    }else{
+        
+    }
+});
 
 
 $(document).on("click", ".addToCartBtn", addCart);

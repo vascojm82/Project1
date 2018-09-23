@@ -9,4 +9,4 @@ var config = {
 firebase.initializeApp(config);
 
 
-var db = firebase.database().ref('project1');
+var db = firebase.database();

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Project 1</title>
-   
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="./assets/CSS/style.css">
@@ -15,31 +15,32 @@
 
 <body>
     <div class="header">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand" href="#">E-Mart</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                      <ul class="navbar-nav header-buttons">
-                        <li class="nav-item ">
-                          <a class="nav-link" href="#">Home </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link login" href="#">Login</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link logout" href="#">Sign Out</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link signup" href="#">Signup</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Cart</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </nav>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="#">E-Mart</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav header-buttons">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#">Home </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link login" href="#">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link logout" href="#">Sign Out</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link signup" href="#">Signup</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Cart</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </div>
 
     <!--container holds search btn, items card, and shopping cart card-->
@@ -51,28 +52,48 @@
                         <form id="custom-search-form" class="form-search form-horizontal pull-right">
                             <div class="input-append span12">
                                 <input type="text" class="search-query" placeholder="Search" id="searchInp">
-                                <button type="submit" class="btn" id="searchBtn"><i class="icon-search"></i></button>
+                                <button type="submit" class="btn" id="searchBtn">
+                                    <i class="icon-search"></i>
+                                </button>
                             </div>
                         </form>
                         <br>
                     </div>
                 </div>
-                <!--start of items cards-->              <!--card for Shop first column item-->
-                <div class="row " id="items" >
+                <!--start of items cards-->
+                <!--card for Shop first column item-->
+                <div class="row " id="items">
                 </div>
             </div>
 
             <!--card for Shopping Cart-->
-            <div class="col-12 col-md-3" style="outline-color:red;">
-                <div class="card" style="width: 18rem;margin-left:auto;">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                        
+            <div class="col-12 col-md-3 p-3">
+                <div class="card" style="width: 100%;margin-left:auto;">
+                    <div class="card-body" id="shoppingCart">
+                        <div class="cartImg">
+                            <img src="assets/img/cart-empty.png" alt="">
+                        </div>
+                        <table class="table table-sm ">
+                            <thead class="thead-dark">
+                                <tr>
+                                <th style="width: 50%;">Item</th>
+                                <th style="width: 25%;">QTY</th>
+                                <th style="width: 25%;">$</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr >
+                                <td class="text-left" >Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                </tr>
+                                <tr >
+                                <td class="text-left" >Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
