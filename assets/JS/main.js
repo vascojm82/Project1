@@ -53,7 +53,7 @@ function ebaySearch(userSearch) {
     + "&RESPONSE-DATA-FORMAT=JSON"
     + "&callback=_cb_findItemsByKeywords&REST-PAYLOAD"
     + "&keywords=" + userSearch
-    + "&paginationInput.entriesPerPage=3";
+    + "&paginationInput.entriesPerPage=10";
 
   console.log(queryURL);
 
@@ -84,7 +84,9 @@ function _cb_findItemsByKeywords(data) {
     ebayList.push({
       name: (items[i].title + "").substring(0, 60) + " EBAY",
       price: items[i].sellingStatus[0].currentPrice[0].__value__,
+      logo: "ebayLogo.png",
       img: items[i].galleryURL,
+      qty : 0,
       itemId: items[i].itemId[0]
     });
   }
@@ -122,7 +124,9 @@ function walmartSearch(userSearch) {
         walmartList.push({
           name: items[i].name.substring(0, 60) + " WAL",
           price: items[i].salePrice,
+          logo: "walmartLogo.png",
           img: items[i].mediumImage,
+          qty : 0,
           itemId: items[i].itemId
         });
       }
@@ -158,21 +162,19 @@ function newCards() {
 
   for (var i = 0; i < totalSearch.length; i++) {
 
-
-    var h5 = $('<h5 class="card-title">');
-    h5.text(totalSearch[i].name);
-
-    var p = $('<p class="price-text">');
-    p.text('$' + totalSearch[i].price);
+    var h5 = $('<h5 class="card-title">').text(totalSearch[i].name);
+    var p = $('<p class="price-text">').text('$' + totalSearch[i].price);
     var img = $('<img class="card-img-top" src=' + totalSearch[i].img + '>');
     var cardBodyDiv = $('<div class="card-body">');
     cardBodyDiv.append(h5, p);
     var addCartBtn = $('<a href="#" class="btn btn-primary addToCartBtn">')
       .text('Add to Cart')
       .attr('data-itemId', totalSearch[i].itemId);
-    var card = $('<div class="card cardContent">').append(img, cardBodyDiv, addCartBtn);
+    var logo = $('<img class="card-img-top companyLogo" src="assets/img/' + totalSearch[i].logo + '">');
+    var qty = $('<div>').append("<input  type='number' id="+totalSearch[i].itemId+">");
+    var card = $('<div class="card cardContent">').append(img, cardBodyDiv,qty, logo, addCartBtn);
 
-    var colDiv = $('<div class="col-12 col-md-4 col-lg-3">').append(card);
+    var colDiv = $('<div class="col-12 col-sm-6 col-md-4 col-lg-3">').append(card);
     $('#items').append(colDiv);
   }
 

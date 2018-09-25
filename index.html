@@ -16,7 +16,7 @@
 <body>
     <div class="header">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="#">E-Mart</a>
+            <a class="navbar-brand logo" href="#">E-Mart</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -46,7 +46,7 @@
     <!--container holds search btn, items card, and shopping cart card-->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-md-9">
+            <div class="col-12 col-md-8 col-lg-9">
                 <div class="row">
                     <div class="col-12">
                         <form id="custom-search-form" class="form-search form-horizontal pull-right">
@@ -61,37 +61,27 @@
                     </div>
                 </div>
                 <!--start of items cards-->
-                <!--card for Shop first column item-->
+                <!--card for Shop first column item-->  
                 <div class="row " id="items">
                 </div>
             </div>
 
             <!--card for Shopping Cart-->
-            <div class="col-12 col-md-3 p-3">
+            <div class="col-12 col-md-4 col-lg-3 p-3">
                 <div class="card" style="width: 100%;margin-left:auto;">
-                    <div class="card-body" id="shoppingCart">
+                    <div class="card-body" id="shoppingCart" >
                         <div class="cartImg">
-                            <img src="assets/img/cart-empty.png" alt="">
+                            <img src="assets/img/cart-empty.png" alt="" style="width: 100%">
                         </div>
-                        <table class="table table-sm ">
+                        <table class="table table-sm shopTable" >
                             <thead class="thead-dark">
                                 <tr>
-                                <th style="width: 50%;">Item</th>
-                                <th style="width: 25%;">QTY</th>
-                                <th style="width: 25%;">$</th>
+                                    <th style="width: 50%;">Item</th>
+                                    <th style="width: 25%;">QTY</th>
+                                    <th style="width: 25%;">$</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr >
-                                <td class="text-left" >Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                </tr>
-                                <tr >
-                                <td class="text-left" >Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
+                            <tbody id="tableBody">
                             </tbody>
                         </table>
                     </div>
