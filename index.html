@@ -49,20 +49,24 @@
             <div class="col-12 col-md-8 col-lg-9">
                 <div class="row">
                     <div class="col-12">
-                        <form id="custom-search-form" class="form-search form-horizontal pull-right">
+                        <form id="custom-search-form" class="form-search ">
                             <div class="input-append span12">
-                                <input type="text" class="search-query" placeholder="Search" id="searchInp">
-                                <button type="submit" class="btn" id="searchBtn">
-                                    <i class="icon-search"></i>
-                                </button>
+                                <input type="text" class="search-query" placeholder="Search..." id="searchInp">
+                                <button type="submit" class="btn" id="searchBtn"><i class="icon-search"></i></button>
                             </div>
                         </form>
                         <br>
                     </div>
                 </div>
-                <!--start of items cards-->
-                <!--card for Shop first column item-->  
-                <div class="row " id="items">
+                <!--START OF ITEM CARDS-->
+                <!--card for Shop first column item-->
+
+                <div class="row align-items-stretch justify-content-between" id="items">
+                  
+                   
+                </div>
+                <div class="row">
+                        <div id="pagination-items" class="col-12"></div>
                 </div>
             </div>
 
@@ -89,14 +93,17 @@
             </div>
 
         </div>
+      
     </div>
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://pagination.js.org/dist/2.1.4/pagination.min.js"> </script>
     <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+    
     <script src="assets/JS/firebase_db.js"></script>
     <script src="assets/JS/main.js"></script>
+   
     <script src="assets/JS/shoppingcart.js"></script>
 </body>
 

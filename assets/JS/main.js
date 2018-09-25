@@ -47,13 +47,13 @@ $('.logout').click(function () {
 function ebaySearch(userSearch) {
 
   var queryURL = "https://svcs.ebay.com/services/search/FindingService/v1"
-    + "?OPERATION-NAME=findItemsByKeywords"
-    + "&SERVICE-VERSION=1.0.0"
-    + "&SECURITY-APPNAME=luisdiaz-project1-PRD-4d2df7e74-dcc5cc15&GLOBAL-ID=EBAY-US"
-    + "&RESPONSE-DATA-FORMAT=JSON"
-    + "&callback=_cb_findItemsByKeywords&REST-PAYLOAD"
-    + "&keywords=" + userSearch
-    + "&paginationInput.entriesPerPage=10";
+    +"?OPERATION-NAME=findItemsByKeywords"
+    +"&SERVICE-VERSION=1.0.0"
+    +"&SECURITY-APPNAME=luisdiaz-project1-PRD-4d2df7e74-dcc5cc15&GLOBAL-ID=EBAY-US"
+    +"&RESPONSE-DATA-FORMAT=JSON"
+    +"&callback=_cb_findItemsByKeywords&REST-PAYLOAD"
+    +"&keywords=" + userSearch
+    +"&paginationInput.entriesPerPage=20";
 
   console.log(queryURL);
 
@@ -99,9 +99,10 @@ function _cb_findItemsByKeywords(data) {
 function walmartSearch(userSearch) {
 
   var queryURL = "https://api.walmartlabs.com/v1/search"
-    + "?apiKey=gz923356c3mh4n2agf52q4hp"
-    + "&query=" + userSearch
-    + "&facet=on";
+    +"?apiKey=gz923356c3mh4n2agf52q4hp"
+    +"&query=" + userSearch
+    +"&numItems=20"
+    +"&facet=on";
 
   console.log(queryURL);
   $.ajax({
@@ -160,6 +161,7 @@ function unsortSearch(array) {
 //CREATE BOOTSTRAP CARDS
 function newCards() {
 
+  var cardsArray = []; 
   for (var i = 0; i < totalSearch.length; i++) {
 
     var h5 = $('<h5 class="card-title">').text(totalSearch[i].name);
@@ -175,10 +177,9 @@ function newCards() {
     var card = $('<div class="card cardContent">').append(img, cardBodyDiv,qty, logo, addCartBtn);
 
     var colDiv = $('<div class="col-12 col-sm-6 col-md-4 col-lg-3">').append(card);
-    $('#items').append(colDiv);
+    cardsArray.push(colDiv);
   }
-
-
+  return cardsArray;
 }
 
 //SEARCH BAR
@@ -196,12 +197,23 @@ $("#searchBtn").on("click", function (event) {
 });
 
 
-function checkIfAllCallssAreFinished() {
-  if (ebayList && walmartList && ebayList.length > 0 && walmartList.length > 0) {
+function checkIfAllCallssAreFinished(){
+  if(ebayList && walmartList && ebayList.length>0 && walmartList.length>0){
+    var cardsArray = [];    
     //process info
     totalSearch = ebayList.concat(walmartList);
     unsortSearch(totalSearch);
     $('#items').empty();
-    newCards();
+    cardsArray = newCards(totalSearch);
+    $('#pagination-items').pagination({
+      dataSource: cardsArray,
+      pageSize: 8,
+      ulClassName: "pagination pagination-lg justify-content-center",
+      activeClassName: "active",
+      callback: function(data, pagination) {
+          // template method of yourself
+          $("#items").html(data);
+      }
+  })
   }
 }
