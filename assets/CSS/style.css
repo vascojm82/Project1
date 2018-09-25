@@ -1,7 +1,7 @@
 *{
     box-sizing: border-box;
     text-align: center;
-    /* outline: 1px dotted black; */
+    outline: 1px dotted black;
  }
 /*START OF NAV BAR*/
 .header {
