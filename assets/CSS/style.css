@@ -6,9 +6,6 @@
 /*START OF NAV BAR*/
 .header {
 background-color: #0069d9;
-
-
-
 }
 .logo {
     color: #fefefe !important;
@@ -23,33 +20,31 @@ background-color: #0069d9;
     list-style: none;
     color: white;
 }
-
 .nav-link {
     color: white !important;
 }
 .nav-link:hover{
     color: #777777 !important;
 }
+
+/*SEARCH BAR*/
 #custom-search-form {
     margin:0;
     margin-top: 5px;
     padding: 0;
     width: 100%;
 }
-
 #custom-search-form .search-query {
     padding-right: 3px;
     padding-right: 4px \9;
     padding-left: 3px;
     padding-left: 4px \9;
     /* IE7-8 doesn't have border-radius, so don't indent the padding */
-
     margin-bottom: 0;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
-
 #custom-search-form button {
     border: 0;
     background: none;
@@ -64,10 +59,10 @@ background-color: #0069d9;
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
-
 .search-query:focus + button {
     z-index: 3;   
 }
+
 /*ITEMS CARDS*/
  .card-title {
      text-align: left;
@@ -91,17 +86,30 @@ background-color: #0069d9;
    display: none;
  }
  .cardContent {
-    height: 550px;
+    /* height: 550px; */
     margin-bottom: 10px;
+    
  }
-
  .companyLogo{
      width: 80px;
      margin-left: 10px;
  }
 
- /*** LOGIN MODAL ***/
+ #items {
+     align-items: stretch;
+ }
+.pagination > li > a {
+    position:relative;
+    display:block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: white;
+    border: 1px solid #dee2e6;
+}
 
+ /*** LOGIN MODAL ***/
  /* Full-width input fields */
  input[type=text], input[type=password] {
      width: 100%;
@@ -122,7 +130,6 @@ background-color: #0069d9;
      cursor: pointer;
      width: 100%;
  }
-
  button:hover {
      opacity: 0.8;
  }
@@ -133,23 +140,20 @@ background-color: #0069d9;
      padding: 10px 18px;
      background-color: #f44336;
  }
-
+ 
  /* Center the image and position the close button */
  .imgcontainer {
      text-align: center;
      margin: 24px 0 12px 0;
      position: relative;
  }
-
  img.avatar {
      width: 40%;
      border-radius: 50%;
  }
-
  .container {
      padding: 16px;
  }
-
  span.psw {
      float: right;
      padding-top: 16px;
@@ -187,7 +191,6 @@ background-color: #0069d9;
      font-size: 35px;
      font-weight: bold;
  }
-
  .close:hover,
  .close:focus {
      color: red;
