@@ -53,7 +53,7 @@ function ebaySearch(userSearch) {
     +"&RESPONSE-DATA-FORMAT=JSON"
     +"&callback=_cb_findItemsByKeywords&REST-PAYLOAD"
     +"&keywords=" + userSearch
-    +"&paginationInput.entriesPerPage=3";
+    +"&paginationInput.entriesPerPage=20";
 
   console.log(queryURL);
 
@@ -95,9 +95,10 @@ function _cb_findItemsByKeywords(data) {
 // Waltmart API
 function walmartSearch(userSearch) {
 
-  var queryURL = "http://api.walmartlabs.com/v1/search"
+  var queryURL = "https://api.walmartlabs.com/v1/search"
     +"?apiKey=gz923356c3mh4n2agf52q4hp"
     +"&query=" + userSearch
+    +"&numItems=20"
     +"&facet=on";
 
   console.log(queryURL);
@@ -167,8 +168,10 @@ function newCards(title, price, imgSrc, logoSrc) {
   var card = $('<div class="card cardContent">').append(img, cardBodyDiv, logo, addCartBtn);
 
   var colDiv = $('<div class="col-12 col-md-4 col-lg-3">').append(card);
-  $('#items').append(colDiv);
 
+  return colDiv;
+  // $('#items').append(colDiv);
+console.log(colDiv);
 }
 
 $("#searchBtn").on("click", function(event) {
@@ -187,12 +190,25 @@ $("#searchBtn").on("click", function(event) {
 
 function checkIfAllCallssAreFinished(){
   if(ebayList && walmartList && ebayList.length>0 && walmartList.length>0){
+    var cardsArray = [];    
     //process info
     totalSearch = ebayList.concat(walmartList);
     unsortSearch(totalSearch);
+    console.log(totalSearch);
     $('#items').empty();
     for(var i=0; i<totalSearch.length; i++){
-      newCards(totalSearch[i].name,totalSearch[i].price, totalSearch[i].img, totalSearch[i].logo);
+      var newCard = newCards(totalSearch[i].name,totalSearch[i].price, totalSearch[i].img, totalSearch[i].logo);
+      cardsArray.push(newCard);
     }
+    $('#pagination-items').pagination({
+      dataSource: cardsArray,
+      pageSize: 8,
+      ulClassName: "pagination pagination-lg justify-content-center",
+      activeClassName: "active",
+      callback: function(data, pagination) {
+          // template method of yourself
+          $("#items").html(data);
+      }
+  })
   }
 }

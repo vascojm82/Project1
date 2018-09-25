@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Project 1</title>
-   
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="./assets/CSS/style.css">
@@ -15,31 +15,32 @@
 
 <body>
     <div class="header">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand logo" href="#">E-Mart</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                      <ul class="navbar-nav header-buttons">
-                        <li class="nav-item ">
-                          <a class="nav-link" href="#">Home </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link login" href="#">Login</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link logout" href="#">Sign Out</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link signup" href="#">Signup</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Cart</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </nav>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand logo" href="#">E-Mart</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav header-buttons">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#">Home </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link login" href="#">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link logout" href="#">Sign Out</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link signup" href="#">Signup</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Cart</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </div>
 
     <!--container holds search btn, items card, and shopping cart card-->
@@ -48,17 +49,24 @@
             <div class="col-12 col-md-9">
                 <div class="row">
                     <div class="col-12">
-                        <form id="custom-search-form" class="form-search form-horizontal pull-right">
+                        <form id="custom-search-form" class="form-search ">
                             <div class="input-append span12">
-                                <input type="text" class="search-query" placeholder="Search" id="searchInp">
+                                <input type="text" class="search-query" placeholder="Search..." id="searchInp">
                                 <button type="submit" class="btn" id="searchBtn"><i class="icon-search"></i></button>
                             </div>
                         </form>
                         <br>
                     </div>
                 </div>
-                <!--start of items cards-->              <!--card for Shop first column item-->
-                <div class="row " id="items" >
+                <!--START OF ITEM CARDS-->
+                <!--card for Shop first column item-->
+
+                <div class="row align-items-stretch justify-content-between" id="items">
+                  
+                   
+                </div>
+                <div class="row">
+                        <div id="pagination-items" class="col-12"></div>
                 </div>
             </div>
 
@@ -72,20 +80,23 @@
                             card's content.</p>
                         <a href="#" class="card-link">Card link</a>
                         <a href="#" class="card-link">Another link</a>
-                        
+
                     </div>
                 </div>
             </div>
 
         </div>
+      
     </div>
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://pagination.js.org/dist/2.1.4/pagination.min.js"> </script>
     <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+    
     <script src="assets/JS/firebase_db.js"></script>
     <script src="assets/JS/main.js"></script>
+   
     <script src="assets/JS/shoppingcart.js"></script>
 </body>
 
