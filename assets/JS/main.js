@@ -4,6 +4,7 @@ var provider = new firebase.auth.GoogleAuthProvider();
 var ebayList;
 var walmartList;
 var totalSearch = [];
+var user;
 
 provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 firebase.auth().useDeviceLanguage();
@@ -13,7 +14,7 @@ $('.login').click(function () {
     // This gives you a Google Access Token. You can use it to access the Google API.
     var token = data.credential.accessToken;
     // The signed-in user info.
-    var user = data.user;
+    user = data.user;
     console.log("User: " + JSON.stringify(user));
     console.log("Access Token: " + token);
     $('.signup').css("display", "none");
