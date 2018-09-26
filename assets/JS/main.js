@@ -174,7 +174,11 @@ function newCards() {
       .text('Add to Cart')
       .attr('data-itemId', totalSearch[i].itemId);
     var logo = $('<img class="card-img-top companyLogo" src="assets/img/' + totalSearch[i].logo + '">');
-    var qty = $('<div>').append("<input  type='number' id="+totalSearch[i].itemId+">");
+    var qty = $('<div class="inputQty">');
+    qty
+      .text('Qty: ')
+      .append("<input  type='number' class='qtyInput' id="+totalSearch[i].itemId+">");
+        
     var card = $('<div class="card cardContent">').append(img, cardBodyDiv,qty, logo, addCartBtn);
 
     var colDiv = $('<div class="col-12 col-sm-6 col-md-4 col-lg-3">').append(card);
@@ -187,6 +191,7 @@ function newCards() {
 $("#searchBtn").on("click", function (event) {
   event.preventDefault();
   var userSearch = $('#searchInp').val();
+  $('#searchInp').val('');
   $('#items').empty();
   ebayList = [];
   walmartList = [];
