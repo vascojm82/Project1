@@ -163,6 +163,9 @@ background-color: #0069d9;
      margin: 24px 0 12px 0;
      position: relative;
  }
+ .cardImg{
+    max-width: 270px;
+ }
  img.avatar {
      width: 40%;
      border-radius: 50%;

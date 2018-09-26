@@ -3,40 +3,45 @@
 //     event.preventDefault();
 
 function addCart() {
-    var itemId = $(this).attr("data-itemId");
-    var qty = $('#' + itemId);
-    var itemSelected;
-    for (var i = 0; i < totalSearch.length; i++) {
-        if (totalSearch[i].itemId == itemId) {
-            itemSelected = totalSearch[i];
-            break;
+    if(userId != undefined && userId!=null ){
+        var itemId = $(this).attr("data-itemId");
+        var qty = $('#' + itemId);
+        if(parseInt(qty)<1){
+            return false;
         }
+        var itemSelected;
+        for (var i = 0; i < totalSearch.length; i++) {
+            if (totalSearch[i].itemId == itemId) {
+                itemSelected = totalSearch[i];
+                break;
+            }
+        }
+        console.log(totalSearch);
+        db.ref(userId).once("value", function (snapshot) {
+            var userCart = snapshot.val();
+            var itemInfo = [];
+            if (userCart == null || !userCart) {
+                itemInfo = [{
+                    name: itemSelected.name,
+                    price: itemSelected.price,
+                    quantity: qty.val(),
+                    itemId: itemId
+                }];
+            } else {
+                itemInfo = userCart;
+                itemInfo.push({
+                    name: itemSelected.name,
+                    price: itemSelected.price,
+                    quantity: qty.val(),
+                    itemId: itemId
+                });
+            }
+            db.ref(userId).set(itemInfo);
+            qty.text("");
+        }, function (error) {
+            console.log(error);
+        });
     }
-    console.log(totalSearch);
-    db.ref(userId).once("value", function (snapshot) {
-        var userCart = snapshot.val();
-        var itemInfo = [];
-        if (userCart == null || !userCart) {
-            itemInfo = [{
-                name: itemSelected.name,
-                price: itemSelected.price,
-                quantity: qty.val(),
-                itemId: itemId
-            }];
-        } else {
-            itemInfo = userCart;
-            itemInfo.push({
-                name: itemSelected.name,
-                price: itemSelected.price,
-                quantity: qty.val(),
-                itemId: itemId
-            });
-        }
-        db.ref(userId).set(itemInfo);
-        qty.text("");
-    }, function (error) {
-        console.log(error);
-    });
 };
 
 //addCart();
@@ -52,10 +57,10 @@ function clearCart() {
 function shoppingCart(cart) {
     if (cart != null) {
         var $total = $('#total');
-        var $tax =  $('#tax');
+        var $tax = $('#tax');
         var $subtotal = $('#subtotal');
         var total = parseInt($total.text().replace("$", ""));
-        var tax =  parseInt($tax.text().replace("$", ""));
+        var tax = parseInt($tax.text().replace("$", ""));
         var subtotal = parseInt($subtotal.text().replace("$", ""));
         var tableBody = $('#tableBody');
         var tr = $("<tr>")
@@ -63,17 +68,17 @@ function shoppingCart(cart) {
         var qty = $("<td>").text(cart.quantity);
         var price = $("<td>").text("$" + cart.price);
         subtotal += (parseInt(cart.quantity) * parseFloat(cart.price));
-        
+
         tr.append(name, qty, price);
         tableBody.append(tr);
         $(".cartImg").addClass('hiddeEmptyCart');
-        var tax = (subtotal *7)/100;
+        var tax = (subtotal * 7) / 100;
         tax = parseFloat(tax).toFixed(2);
-        total =(parseFloat(subtotal) + parseFloat(tax)) ;
+        total = (parseFloat(subtotal) + parseFloat(tax));
         total = parseFloat(total).toFixed(2);
-        $subtotal.text("$"+subtotal);
-        $tax.text("$"+tax);
-        $total.text("$"+total);
+        $subtotal.text("$" + subtotal);
+        $tax.text("$" + tax);
+        $total.text("$" + total);
     }
 
 }
@@ -89,6 +94,16 @@ function addChild() {
         }
     });
 }
+
+$("#buynow").on("click", function (event) {
+    event.preventDefault();
+    clearCart();
+    $(".cartImg").removeClass('hiddeEmptyCart');
+    $("#tableBody").empty();
+    $('#subtotal').text("$0");
+    $('#tax').text("$0");
+    $('#total').text("$0");
+});
 
 
 $(document).on("click", ".addToCartBtn", addCart);
