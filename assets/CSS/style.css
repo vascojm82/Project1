@@ -106,6 +106,10 @@ background-color: #0069d9;
     margin-left: 10px;
  }
 
+ .hiddeEmptyCart{
+     display: none;
+ }
+
  #items {
      align-items: stretch;
  }

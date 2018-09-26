@@ -15,14 +15,8 @@ $(document).ready(function () {
             console.log(userId);
             $('.signup').css("display", "none");
             $('.logout').css("display", "inline-block");
+            $('#total').text("$0");
             $('#tableBody').empty();
-
-            // db.ref(userId).once("value", function (snapshot) {
-            //     console.log(snapshot.val());
-            //     shoppingCart(snapshot);
-            // }, function (error) {
-            //     console.log(error);
-            // });
 
             addChild();
 
@@ -43,9 +37,14 @@ $(document).ready(function () {
     $('.logout').click(function () {
         firebase.auth().signOut().then(function () {
             console.log("You are signed out ");
+            //Cleaning html
             $('.signup').css("display", "inline-block");
             $('.logout').css("display", "none");
             $('#tableBody').empty();
+            $('#subtotal').text("$0");
+            $('#tax').text("$0");
+            $('#total').text("$0");
+    
         }).catch(function (error) {
             console.log(error);
         });
