@@ -44,7 +44,7 @@ $(document).ready(function () {
             $('#subtotal').text("$0");
             $('#tax').text("$0");
             $('#total').text("$0");
-    
+
         }).catch(function (error) {
             console.log(error);
         });

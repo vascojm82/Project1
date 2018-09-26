@@ -14,7 +14,7 @@ var walmartSearchStatus = false;
 
 
 // EBAY API
-function ebaySearch(userSearch) {
+function ebaySearch(userSearch){
 
   var queryURL = "https://svcs.ebay.com/services/search/FindingService/v1"
     + "?OPERATION-NAME=findItemsByKeywords"
@@ -141,7 +141,7 @@ function newCards() {
 
     var h5 = $('<h5 class="card-title">').text(totalSearch[i].name);
     var p = $('<p class="price-text">').text('$' + totalSearch[i].price);
-    var img = $('<img class="card-img-top cardImg" src=' + totalSearch[i].img + '>');
+    var img = $('<img id="card" class="card-img-top cardImg" src=' + totalSearch[i].img + '>');
     var cardBodyDiv = $('<div class="card-body">');
     cardBodyDiv.append(h5, p);
     var addCartBtn = $('<a href="#" class="btn btn-primary addToCartBtn">')
@@ -193,9 +193,22 @@ function checkIfAllCallssAreFinished() {
       callback: function (data, pagination) {
         // template method of yourself
         $("#items").html(data);
+        $('.cardImg').click(function(){
+          $('#modal').html('<span class="modal-close-btn" data-izimodal-close="" data-izimodal-transitionout="fadeOutDown">X</span>' +
+                           '<img class="popup-img" src="' + $(this).attr("src") + '">');
+          $('#modal').iziModal('open');
+        });
       }
     })
     ebaySearchStatus = false;
     walmartSearchStatus = false;
   }
 }
+
+$('#modal').iziModal({
+  fullscreen: true,
+  closeButton: true,
+  background: '#000000',
+  closeOnEscape: true,
+  group: 'group1'
+});
