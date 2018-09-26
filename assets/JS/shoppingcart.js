@@ -1,7 +1,11 @@
 // method for add items to the cart
 // $("#addCartForm").on("submit", function (event) {
 //     event.preventDefault();
-var userId = user.email;
+var userId 
+if(!user.email && user.email!=null){
+    userId = user.email; 
+}
+
 function addCart(){
 
     console.log("Adding to Cart");
