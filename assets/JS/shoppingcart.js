@@ -1,7 +1,7 @@
 // method for add items to the cart
 // $("#addCartForm").on("submit", function (event) {
 //     event.preventDefault();
-var userId = "First User";
+var userId = user.email;
 function addCart(){
 
     console.log("Adding to Cart");
@@ -23,7 +23,7 @@ function addCart(){
             itemInfo = [{
                 name: itemSelected.name,
                 price : itemSelected.price,
-                quantity: qty,
+                quantity: qty.val(),
                 itemId: itemId
             }];
         }else{
@@ -31,7 +31,7 @@ function addCart(){
             itemInfo.push({
                 name: itemSelected.name,
                 price : itemSelected.price,
-                quantity: qty,
+                quantity: qty.val(),
                 itemId: itemId
             });
         }
