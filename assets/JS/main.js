@@ -83,7 +83,7 @@ function _cb_findItemsByKeywords(data) {
   for (var i = 0; i < items.length; i++) {
 
     ebayList.push({
-      name: (items[i].title + "").substring(0, 60) + " EBAY",
+      name: (items[i].title + "").substring(0, 60),
       price: items[i].sellingStatus[0].currentPrice[0].__value__,
       logo: "ebayLogo.png",
       img: items[i].galleryURL,
@@ -124,7 +124,7 @@ function walmartSearch(userSearch) {
       for (var i = 0; i < items.length; i++) {
 
         walmartList.push({
-          name: items[i].name.substring(0, 60) + " WAL",
+          name: items[i].name.substring(0, 60),
           price: items[i].salePrice,
           logo: "walmartLogo.png",
           img: items[i].mediumImage,
