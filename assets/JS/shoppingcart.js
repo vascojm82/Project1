@@ -4,34 +4,42 @@
 var userId = "First User";
 function addCart(){
 
-    
+    console.log("Adding to Cart");
+    var itemId = $(this).attr("data-itemId");
+    var qty =$('#'+itemId);
+    var itemSelected;
+    for(var i=0; i<totalSearch.length; i++){
+        if(totalSearch[i].itemId == itemId){
+            itemSelected = totalSearch[i];
+            break;
+        }
+    }
+    console.log(totalSearch);
     db.ref(userId).once("value", function (snapshot) {
         var userCart = snapshot.val();
         console.log(userCart);
         var itemInfo = [];
         if(userCart == null || !userCart){
             itemInfo = [{
-                user: 'USER',
-                name: 'test',
-                quantity: 8,
-                itemId: 252525
+                name: itemSelected.name,
+                price : itemSelected.price,
+                quantity: qty,
+                itemId: itemId
             }];
-            
-            
         }else{
             itemInfo=userCart;
             itemInfo.push({
-                user: 'USER2',
-                name: 'test2',
-                quantity: 9,
-                itemId: 2525
+                name: itemSelected.name,
+                price : itemSelected.price,
+                quantity: qty,
+                itemId: itemId
             });
         }
         db.ref(userId).set(itemInfo);
     }, function (error) {
         console.log(error);
     });
-};//);
+};
 
 //addCart();
 // method for search the user cart
@@ -41,20 +49,33 @@ function clearCart(){
 
     db.ref(userId).remove();
 };//);
-clearCart();
-
-
-
 
 
 // // method for update cart
-// database.ref(userId).on("child_added", function (childSnapshot) {
+db.ref(userId).on("child_added", function (childSnapshot) {
 
-//     var newTr = $('<tr class="train">').append(
-//         $('<td>').text(childSnapshot.val().name),
-//         $('<td>').text(childSnapshot.val().destination),
-//         $('<td>').text(childSnapshot.val().frecuency)
-//     );
-//     calcNextArrival(newTr, childSnapshot.val().time, childSnapshot.val().frecuency);
-//     $('#trainList').append(newTr);
-// });
+    var $shoppingCart = $('#shoppingCart');
+    var tableBody = $('#tableBody');
+    if(childSnapshot && childSnapshot != null){
+        var cart = childSnapshot.val();
+        console.log(cart);
+        console.log('IN');
+        var tr = $("<tr>")
+        var name = $("<td class='text-left'>").text(cart.name);
+        var qty = $("<td>").text(cart.quantity);
+        var price = $("<td>").text("$"+cart.price);
+        tr.append(name, qty, price);
+        console.log(tr);
+        tableBody
+            .append(tr);
+        $(".cartImg").addClass('hiddeEmptyCart');
+            
+    }else{
+        tableBody
+            .addClass(shopTable)
+            .append(tr);
+        $(".cartImg").removeClass('hiddeEmptyCart');
+    }
+});
+
+$(document).on("click", ".addToCartBtn", addCart);

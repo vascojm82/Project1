@@ -6,175 +6,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Project 1</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
-    <script type="text/javascript" src="./assets/JS/firebase_db.js"></script>
-    <script type="text/javascript" src="./assets/JS/main.js"></script>
     <link rel="stylesheet" href="./assets/CSS/style.css">
 </head>
 
 
 <body>
-
-  <!--- Login Modal --->
-  <div id="id01" class="modal">
-    <form class="modal-content animate" action="/action_page.php">
-        <div class="imgcontainer">
-          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-          <img src="./assets/img/img_avatar2.png" alt="Avatar" class="avatar">
-        </div>
-
-        <div class="container">
-          <label for="uname"><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" name="uname" required>
-
-          <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" required>
-
-          <button type="submit" class="submit">Login</button>
-          <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-          </label>
-        </div>
-
-        <div class="container" style="background-color:#f1f1f1">
-          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-          <span class="psw">Forgot <a href="#">password?</a></span>
-        </div>
-    </form>
-  </div>
-  <!-------------------------------->
-    <!-- <nav class="container-fluid">
-
-        <ul>
-            <li class="rightAuto"><div class="logo">ShopNow</div></li>
-            <li><a href="#">login</a></li>
-            <li><a href="#">sign up</a></li>
-            <li><a href="#">shopping cart</a></li>
-        </ul>
-        <ul>
-
-                <li><a href="#">deparments</a></li>
-                <li><a href="#">buy again</a></li>
-                <li><a href="#">browsing history</a></li>
-            </ul>
-
-    </nav> -->
     <div class="header">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand" href="#">ShopNow</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                      <ul class="navbar-nav header-buttons">
-                        <li class="nav-item ">
-                          <a class="nav-link" href="#">Home </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link login" href="#">Login</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link logout" href="#">Sign Out</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link signup" href="#">Signup</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Cart</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </nav>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand logo" href="#">E-Mart</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav header-buttons">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#">Home </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link login" href="#">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link logout" href="#">Sign Out</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link signup" href="#">Signup</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Cart</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </div>
 
     <!--container holds search btn, items card, and shopping cart card-->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-md-9">
+            <div class="col-12 col-md-8 col-lg-9">
                 <div class="row">
                     <div class="col-12">
-                        <div id="custom-search-input">
-                            <div class="input-group">
-                                <input type="text" class="search-query form-control" placeholder="Search" />
-                                <span class="input-group-btn">
-                                    <button type="button" disabled>
-                                        <span class="fa fa-search"></span>
-                                    </button>
-                                </span>
+                        <form id="custom-search-form" class="form-search ">
+                            <div class="input-append span12">
+                                <input type="text" class="search-query" placeholder="Search..." id="searchInp">
+                                <button type="submit" class="btn" id="searchBtn"><i class="icon-search"></i></button>
                             </div>
-                        </div>
+                        </form>
                         <br>
                     </div>
                 </div>
-                <!--start of items cards-->              <!--card for Shop first column item-->
+                <!--START OF ITEM CARDS-->
+                <!--card for Shop first column item-->
+
+                <div class="row align-items-stretch justify-content-between" id="items">
+                  
+                   
+                </div>
                 <div class="row">
-                    <div class="col-12 col-md-4">
-                        <div class="card">
-                            <img class="card-img-top" src="http://placehold.it/200x200" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">Item name</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                    of the card's content.</p>
-                                    <form action="">
-                                        <p class="price-text">$100</p>
-                                       <div id="itemId" style="display:none;"></div>
-                                        <a href="#" class="btn btn-warning addToCart">ADD TO CART</a>
-                                    </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!--card for Shop second column item-->
-                    <div class="col-12 col-md-4">
-                        <div class="card">
-                            <img class="card-img-top" src="http://placehold.it/200x200" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">Item name</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                    of the card's content.</p>
-                                <p class="price-text">$100</p>
-                                <a href="#" class="btn btn-primary">ADD TO CART</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!--card for Shop third column item-->
-                    <div class="col-12 col-md-4">
-                        <div class="card">
-                            <img class="card-img-top" src="http://placehold.it/200x200" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">Item name</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                    of the card's content.</p>
-                                <p class="price-text">$100</p>
-                                <a href="#" class="btn btn-primary">ADD TO CART</a>
-                            </div>
-                        </div>
-                    </div>
+                        <div id="pagination-items" class="col-12"></div>
                 </div>
             </div>
 
             <!--card for Shopping Cart-->
-            <div class="col-12 col-md-3" style="outline-color:red;">
-                <div class="card" style="width: 18rem;margin-left:auto;">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
+            <div class="col-12 col-md-4 col-lg-3 p-3">
+                <div class="card" style="width: 100%;margin-left:auto;">
+                    <div class="card-body" id="shoppingCart" >
+                        <div class="cartImg">
+                            <img src="assets/img/cart-empty.png" alt="" style="width: 100%">
+                        </div>
+                        <table class="table table-sm shopTable" >
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th style="width: 50%;">Item</th>
+                                    <th style="width: 25%;">QTY</th>
+                                    <th style="width: 25%;">$</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
 
         </div>
+      
     </div>
 
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+    <script src="assets/JS/pagination.js"></script>
+    <script src="assets/JS/firebase_db.js"></script>
     <script src="assets/JS/main.js"></script>
+    <script src="assets/JS/shoppingcart.js"></script>
 </body>
 
 </html>
