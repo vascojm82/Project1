@@ -1,21 +1,15 @@
 // method for add items to the cart
 // $("#addCartForm").on("submit", function (event) {
 //     event.preventDefault();
-var userId 
-if(user && user!=null){
-    userId = user.email; 
-}else{
-    userId = 'TestUser';
-}
 
-function addCart(){
-
+function addCart() {
+    console.log(userId);
     console.log("Adding to Cart");
     var itemId = $(this).attr("data-itemId");
-    var qty =$('#'+itemId);
+    var qty = $('#' + itemId);
     var itemSelected;
-    for(var i=0; i<totalSearch.length; i++){
-        if(totalSearch[i].itemId == itemId){
+    for (var i = 0; i < totalSearch.length; i++) {
+        if (totalSearch[i].itemId == itemId) {
             itemSelected = totalSearch[i];
             break;
         }
@@ -25,18 +19,18 @@ function addCart(){
         var userCart = snapshot.val();
         console.log(userCart);
         var itemInfo = [];
-        if(userCart == null || !userCart){
+        if (userCart == null || !userCart) {
             itemInfo = [{
                 name: itemSelected.name,
-                price : itemSelected.price,
+                price: itemSelected.price,
                 quantity: qty.val(),
                 itemId: itemId
             }];
-        }else{
-            itemInfo=userCart;
+        } else {
+            itemInfo = userCart;
             itemInfo.push({
                 name: itemSelected.name,
-                price : itemSelected.price,
+                price: itemSelected.price,
                 quantity: qty.val(),
                 itemId: itemId
             });
@@ -51,39 +45,48 @@ function addCart(){
 // method for search the user cart
 
 // method for clear cart
-function clearCart(){
+function clearCart() {
 
     db.ref(userId).remove();
 };//);
 
 
-// // method for update cart
-db.ref(userId).on("child_added", function (childSnapshot) {
-
-    var total = parseInt($('#total'));
-    var tableBody = $('#tableBody');
-    if(childSnapshot && childSnapshot != null){
-        var cart = childSnapshot.val();
+function shoppingCart(snapshot) {
+    var cart = snapshot.val();
+    if (cart != null) {
         console.log(cart);
         console.log('IN');
         var tr = $("<tr>")
         var name = $("<td class='text-left'>").text(cart.name);
         var qty = $("<td>").text(cart.quantity);
-        var price = $("<td>").text("$"+cart.price);
-        total += parseInt(price) * parseInt(qty);
+        var price = $("<td>").text("$" + cart.price);
+        total += (parseInt(cart.quantity) * parseFloat(cart.price));
         tr.append(name, qty, price);
         console.log(tr);
         tableBody
             .append(tr);
         $(".cartImg").addClass('hiddeEmptyCart');
-            
-    }else{
-        tableBody
-            .addClass(shopTable)
-            .append(tr);
-        $(".cartImg").removeClass('hiddeEmptyCart');
     }
-    $('#total').text(total);
-});
+
+}
+
+function addChild() {
+    // // method for update cart
+    db.ref(userId).on("child_added", function (childSnapshot) {
+
+        var total = parseInt($('#total').text());
+        //var tableBody = $('#tableBody');
+        if (childSnapshot && childSnapshot != null) {
+            shoppingCart(childSnapshot);
+        } else {
+            // tableBody
+            //     .addClass(shopTable)
+            //     .append(tr);
+            $(".cartImg").removeClass('hiddeEmptyCart');
+        }
+        $('#total').text(total);
+    });
+}
+
 
 $(document).on("click", ".addToCartBtn", addCart);
