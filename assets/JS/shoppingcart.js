@@ -2,8 +2,10 @@
 // $("#addCartForm").on("submit", function (event) {
 //     event.preventDefault();
 var userId 
-if(!user.email && user.email!=null){
+if(user && user!=null){
     userId = user.email; 
+}else{
+    userId = 'TestUser';
 }
 
 function addCart(){
@@ -58,7 +60,7 @@ function clearCart(){
 // // method for update cart
 db.ref(userId).on("child_added", function (childSnapshot) {
 
-    var $shoppingCart = $('#shoppingCart');
+    var total = parseInt($('#total'));
     var tableBody = $('#tableBody');
     if(childSnapshot && childSnapshot != null){
         var cart = childSnapshot.val();
@@ -68,6 +70,7 @@ db.ref(userId).on("child_added", function (childSnapshot) {
         var name = $("<td class='text-left'>").text(cart.name);
         var qty = $("<td>").text(cart.quantity);
         var price = $("<td>").text("$"+cart.price);
+        total += parseInt(price) * parseInt(qty);
         tr.append(name, qty, price);
         console.log(tr);
         tableBody
@@ -80,6 +83,7 @@ db.ref(userId).on("child_added", function (childSnapshot) {
             .append(tr);
         $(".cartImg").removeClass('hiddeEmptyCart');
     }
+    $('#total').text(total);
 });
 
 $(document).on("click", ".addToCartBtn", addCart);
