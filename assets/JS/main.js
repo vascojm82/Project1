@@ -208,7 +208,7 @@ function checkIfAllCallssAreFinished() {
 $('#modal').iziModal({
   fullscreen: true,
   closeButton: true,
-  background: '#000000',
+  background: '#FFFF',
   closeOnEscape: true,
   group: 'group1'
 });

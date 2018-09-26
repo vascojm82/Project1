@@ -169,14 +169,15 @@ background-color: #0069d9;
  }
 
  .popup-img{
-   width: 100%;
+   width: 70%;
    height: 100%;
+   margin: auto;
  }
 
  .iziModal{
    width: 30% !important;
    height: 50% !important;
-   background-color: black;
+   background-color: #FFFF;
  }
 
  .modal-close-btn{
@@ -185,7 +186,7 @@ background-color: #0069d9;
    margin-top: -1%;
    margin-left: 89%;
    z-index: 10000;
-   color: red;
+   color: black;
    font-size: 3rem;
  }
 
