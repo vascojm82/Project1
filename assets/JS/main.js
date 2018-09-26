@@ -6,6 +6,8 @@ var walmartList;
 var totalSearch = [];
 var user;
 var userId;
+var ebaySearchStatus = false;
+var walmartSearchStatus = false;
 
 
 
@@ -15,13 +17,13 @@ var userId;
 function ebaySearch(userSearch) {
 
   var queryURL = "https://svcs.ebay.com/services/search/FindingService/v1"
-    +"?OPERATION-NAME=findItemsByKeywords"
-    +"&SERVICE-VERSION=1.0.0"
-    +"&SECURITY-APPNAME=luisdiaz-project1-PRD-4d2df7e74-dcc5cc15&GLOBAL-ID=EBAY-US"
-    +"&RESPONSE-DATA-FORMAT=JSON"
-    +"&callback=_cb_findItemsByKeywords&REST-PAYLOAD"
-    +"&keywords=" + userSearch
-    +"&paginationInput.entriesPerPage=20";
+    + "?OPERATION-NAME=findItemsByKeywords"
+    + "&SERVICE-VERSION=1.0.0"
+    + "&SECURITY-APPNAME=luisdiaz-project1-PRD-4d2df7e74-dcc5cc15&GLOBAL-ID=EBAY-US"
+    + "&RESPONSE-DATA-FORMAT=JSON"
+    + "&callback=_cb_findItemsByKeywords&REST-PAYLOAD"
+    + "&keywords=" + userSearch
+    + "&paginationInput.entriesPerPage=20";
 
   console.log(queryURL);
 
@@ -32,6 +34,7 @@ function ebaySearch(userSearch) {
     },
     error: function (error) {
       console.log(error);
+      ebaySearchStatus = true;
     },
     dataType: 'jsonp',
     success: function (data) {
@@ -50,14 +53,15 @@ function _cb_findItemsByKeywords(data) {
   for (var i = 0; i < items.length; i++) {
 
     ebayList.push({
-      name: (items[i].title + "").substring(0, 60),
+      name: (items[i].title + "").substring(0, 50),
       price: items[i].sellingStatus[0].currentPrice[0].__value__,
       logo: "ebayLogo.png",
       img: items[i].galleryURL,
-      qty : 0,
+      qty: 0,
       itemId: items[i].itemId[0]
     });
   }
+  ebaySearchStatus = true;
   checkIfAllCallssAreFinished();
 
 }
@@ -67,10 +71,10 @@ function _cb_findItemsByKeywords(data) {
 function walmartSearch(userSearch) {
 
   var queryURL = "https://api.walmartlabs.com/v1/search"
-    +"?apiKey=gz923356c3mh4n2agf52q4hp"
-    +"&query=" + userSearch
-    +"&numItems=20"
-    +"&facet=on";
+    + "?apiKey=gz923356c3mh4n2agf52q4hp"
+    + "&query=" + userSearch
+    + "&numItems=20"
+    + "&facet=on";
 
   console.log(queryURL);
   $.ajax({
@@ -80,6 +84,8 @@ function walmartSearch(userSearch) {
     },
     error: function (error) {
       console.log(error);
+      walmartList = [];
+      walmartSearchStatus = true;
     },
     dataType: 'jsonp',
     success: function (data) {
@@ -91,14 +97,15 @@ function walmartSearch(userSearch) {
       for (var i = 0; i < items.length; i++) {
 
         walmartList.push({
-          name: items[i].name.substring(0, 60),
+          name: items[i].name.substring(0, 50),
           price: items[i].salePrice,
           logo: "walmartLogo.png",
           img: items[i].mediumImage,
-          qty : 0,
+          qty: 0,
           itemId: items[i].itemId
         });
       }
+      walmartSearchStatus = true;
       checkIfAllCallssAreFinished();
       //walmartcode
     }, type: 'GET'
@@ -129,12 +136,12 @@ function unsortSearch(array) {
 //CREATE BOOTSTRAP CARDS
 function newCards() {
 
-  var cardsArray = []; 
+  var cardsArray = [];
   for (var i = 0; i < totalSearch.length; i++) {
 
     var h5 = $('<h5 class="card-title">').text(totalSearch[i].name);
     var p = $('<p class="price-text">').text('$' + totalSearch[i].price);
-    var img = $('<img class="card-img-top" src=' + totalSearch[i].img + '>');
+    var img = $('<img class="card-img-top cardImg" src=' + totalSearch[i].img + '>');
     var cardBodyDiv = $('<div class="card-body">');
     cardBodyDiv.append(h5, p);
     var addCartBtn = $('<a href="#" class="btn btn-primary addToCartBtn">')
@@ -144,9 +151,9 @@ function newCards() {
     var qty = $('<div class="inputQty">');
     qty
       .text('Qty: ')
-      .append("<input  type='number' class='qtyInput' id="+totalSearch[i].itemId+">");
-        
-    var card = $('<div class="card cardContent">').append(img, cardBodyDiv,qty, logo, addCartBtn);
+      .append("<input  type='number' class='qtyInput' id=" + totalSearch[i].itemId + ">");
+
+    var card = $('<div class="card cardContent">').append(img, cardBodyDiv, qty, logo, addCartBtn);
 
     var colDiv = $('<div class="col-12 col-sm-6 col-md-4 col-lg-3">').append(card);
     cardsArray.push(colDiv);
@@ -157,7 +164,7 @@ function newCards() {
 //SEARCH BAR
 $("#searchBtn").on("click", function (event) {
   event.preventDefault();
-  var userSearch = $('#searchInp').val();
+  var userSearch = $('#searchInp').val().trim();
   $('#searchInp').val('');
   $('#items').empty();
   ebayList = [];
@@ -170,9 +177,9 @@ $("#searchBtn").on("click", function (event) {
 });
 
 
-function checkIfAllCallssAreFinished(){
-  if(ebayList && walmartList && ebayList.length>0 && walmartList.length>0){
-    var cardsArray = [];    
+function checkIfAllCallssAreFinished() {
+  if (ebayList && walmartList && walmartSearchStatus && ebaySearchStatus) {
+    var cardsArray = [];
     //process info
     totalSearch = ebayList.concat(walmartList);
     unsortSearch(totalSearch);
@@ -183,10 +190,12 @@ function checkIfAllCallssAreFinished(){
       pageSize: 8,
       ulClassName: "pagination pagination-lg justify-content-center",
       activeClassName: "active",
-      callback: function(data, pagination) {
-          // template method of yourself
-          $("#items").html(data);
+      callback: function (data, pagination) {
+        // template method of yourself
+        $("#items").html(data);
       }
-  })
+    })
+    ebaySearchStatus = false;
+    walmartSearchStatus = false;
   }
 }

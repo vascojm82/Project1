@@ -106,6 +106,10 @@ background-color: #0069d9;
     margin-left: 10px;
  }
 
+ .hiddeEmptyCart{
+     display: none;
+ }
+
  #items {
      align-items: stretch;
  }
@@ -158,6 +162,9 @@ background-color: #0069d9;
      text-align: center;
      margin: 24px 0 12px 0;
      position: relative;
+ }
+ .cardImg{
+    max-width: 270px;
  }
  img.avatar {
      width: 40%;
