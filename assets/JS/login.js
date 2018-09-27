@@ -12,9 +12,10 @@ $(document).ready(function () {
             console.log("User: " + JSON.stringify(user));
             console.log("Access Token: " + token);
             console.log(user);
-            console.log(userId);
+            console.log(user.displayName);
             $('.signup').css("display", "none");
             $('.logout').css("display", "inline-block");
+            $('#userName').text("Welcome " + user.displayName);
             $('#total').text("$0");
             $('#tableBody').empty();
 
@@ -41,6 +42,7 @@ $(document).ready(function () {
             $('.signup').css("display", "inline-block");
             $('.logout').css("display", "none");
             $('#tableBody').empty();
+            $('#userName').empty();
             $('#subtotal').text("$0");
             $('#tax').text("$0");
             $('#total').text("$0");

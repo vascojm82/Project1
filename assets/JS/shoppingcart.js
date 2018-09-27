@@ -44,9 +44,6 @@ function addCart() {
     }
 };
 
-//addCart();
-// method for search the user cart
-
 // method for clear cart
 function clearCart() {
 
